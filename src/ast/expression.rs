@@ -70,7 +70,7 @@ impl Display for UnaryOpcode {
 
 #[cfg(test)]
 mod test {
-    use crate::ast::lr_lang;
+    use crate::ast::define;
     use rstest::*;
 
     #[rstest]
@@ -86,7 +86,7 @@ mod test {
         "(((5 + 5) >= (((100 * 12) + 3) - 1)) || (abc != xyz))"
     )]
     fn test_expression_parser(#[case] expression: &str, #[case] expected: &str) {
-        let parsed = lr_lang::ExprParser::new()
+        let parsed = define::ExprParser::new()
             .parse(expression)
             .expect("Unable to parse expression");
         assert_eq!(expected, parsed.to_string())

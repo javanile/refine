@@ -22,9 +22,11 @@ fn main() {
 
     let program_text =
         fs::read_to_string(args.program_file).expect("Unable to read the program file");
-    let program = ast::lr_lang::ProgramParser::new()
+
+    let program = ast::define::ProgramParser::new()
         .parse(&program_text)
         .expect("Unable to parse the program file");
+
     let mut root_frame = Frame::default();
     root_frame = execute_program(root_frame, &program).unwrap();
     println!("Main frame: {:#?}", root_frame);

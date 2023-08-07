@@ -1,8 +1,12 @@
 [package]
 name = "refine"
 version = "0.1.0"
-authors = ["Konstantin Grech <kgrech@mail.ru>"]
+authors = ["Francesco Bianco <bianco@javanile.org>"]
 edition = "2018"
+
+[[bin]]
+name = "refine"
+path = "src/main.rs"
 
 [build-dependencies]
 lalrpop = { version = "0.19", features = ["lexer"] }

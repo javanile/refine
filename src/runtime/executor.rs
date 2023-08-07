@@ -133,7 +133,7 @@ pub fn execute_program(frame: Frame, program: &Program) -> Result<Frame, Runtime
 
 #[cfg(test)]
 mod test {
-    use crate::ast::lr_lang;
+    use crate::ast::define;
     use crate::ast::value::Value;
     use crate::runtime::executor::evalutate_expression;
     use crate::Frame;
@@ -168,7 +168,7 @@ mod test {
     #[case("100 * 2 < 200 || 120 <= 120 - 1", Value::Bool(false))]
     #[case("!(100 * 2 < 200) && !(120 <= 120 - 1)", Value::Bool(true))]
     fn test_evalutate_expression(#[case] expression: &str, #[case] expected: Value) {
-        let parsed = lr_lang::ExprParser::new()
+        let parsed = define::ExprParser::new()
             .parse(expression)
             .expect("Unable to parse expression");
         let mut root_frame = Frame::default();
