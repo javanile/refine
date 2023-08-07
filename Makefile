@@ -2,9 +2,10 @@
 
 run:
 	@echo "Running..."
-	@cargo run -- --program-file test_programs/valid/if_blocks.lrlang
+	@cargo run -- test_programs/valid/if_blocks.lrlang
 
 dist:
+	@cargo install --path .
 	@cargo build --release
 
 build:

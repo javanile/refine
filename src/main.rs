@@ -12,7 +12,7 @@ use std::fs;
 #[derive(Debug, Parser)]
 #[clap(name = "lr language interpreter", about, verbatim_doc_comment)]
 struct Args {
-    #[clap(short, long)]
+    //#[clap(short, long)]
     program_file: String,
 }
 
