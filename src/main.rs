@@ -1,25 +1,31 @@
+#[macro_use]
+extern crate lalrpop_util;
 
-//extern crate lalrpop;
+mod ast;
+mod runtime;
 
-use std::io::{self, Write};
-use crete::refine::define::ExprParser;
+use crate::runtime::executor::execute_program;
+use crate::runtime::frame::Frame;
+use clap::Parser;
+use std::fs;
 
-mod define;
+#[derive(Debug, Parser)]
+#[clap(name = "lr language interpreter", about, verbatim_doc_comment)]
+struct Args {
+    #[clap(short, long)]
+    program_file: String,
+}
 
 fn main() {
+    let args: Args = Args::parse();
+    println!("Running program {}", args.program_file);
 
-    loop {
-        let mut input = String::new();
-        print!("> ");
-        io::stdout().flush().unwrap();
-        io::stdin().read_line(&mut input).unwrap();
-        if input.trim().is_empty() {
-            break;
-        }
-
-        match ExprParser::new().parse(&input) {
-            Ok(result) => println!("Result: {}", result),
-            Err(e) => println!("Error: {:?}", e),
-        }
-    }
+    let program_text =
+        fs::read_to_string(args.program_file).expect("Unable to read the program file");
+    let program = ast::lr_lang::ProgramParser::new()
+        .parse(&program_text)
+        .expect("Unable to parse the program file");
+    let mut root_frame = Frame::default();
+    root_frame = execute_program(root_frame, &program).unwrap();
+    println!("Main frame: {:#?}", root_frame);
 }

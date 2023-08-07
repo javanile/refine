@@ -3,4 +3,4 @@
 
 test:
 	@echo "Running tests..."
-	@cargo run
+	@cargo test
